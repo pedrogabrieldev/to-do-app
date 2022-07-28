@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useUser } from '../context/userContext'
 import Login from '../components/login'
+import Dashboard from '../components/dashboard'
 
 export default function Home() {
   const { loadingUser, user } = useUser()
@@ -10,7 +11,7 @@ export default function Home() {
       <Head>
         <title>To Do App</title>
       </Head>
-      {loadingUser ? 'Loading...' : user ? `Hello ${user.email}` : <Login />}
+      {loadingUser ? 'Loading...' : user ? <Dashboard /> : <Login />}
     </>
   )
 }
