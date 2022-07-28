@@ -58,6 +58,7 @@ export default function Login() {
           placeholder="Email"
           value={email}
           onChange={handleChangeEmail}
+          required
         />
         <input
           type="password"
@@ -65,6 +66,7 @@ export default function Login() {
           placeholder="Password"
           value={password}
           onChange={handleChangePassword}
+          required
         />
         <input
           type="submit"
