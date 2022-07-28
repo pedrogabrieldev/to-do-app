@@ -4,14 +4,18 @@ import {
   signInWithEmailAndPassword,
 } from 'firebase/auth'
 import { auth } from '../lib/firebase'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLogin, setIsLogin] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   async function handleSubmit(event) {
     event.preventDefault()
+    setIsLoading(true)
 
     try {
       if (isLogin) {
@@ -32,6 +36,8 @@ export default function Login() {
       const errorMessage = error.message
       console.log(errorCode)
       console.log(errorMessage)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -68,11 +74,18 @@ export default function Login() {
           onChange={handleChangePassword}
           required
         />
-        <input
+        <button
           type="submit"
           className="w-full max-w-[30ch] px-3 py-2 border border-slate-100 cursor-pointer duration-500 hover:bg-sky-900"
-          value={isLogin ? 'Login' : 'Register'}
-        />
+        >
+          {isLoading ? (
+            <FontAwesomeIcon icon={faSpinner} spin />
+          ) : isLogin ? (
+            'Login'
+          ) : (
+            'Register'
+          )}
+        </button>
         <p>
           {isLogin ? 'Not registered yet? ' : 'Already registered? '}
           <button
