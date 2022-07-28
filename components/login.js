@@ -70,12 +70,16 @@ export default function Login() {
         />
         <input
           type="submit"
-          className="w-full max-w-[30ch] px-3 py-2 border border-slate-100 cursor-pointer"
+          className="w-full max-w-[30ch] px-3 py-2 border border-slate-100 cursor-pointer duration-500 hover:bg-sky-900"
           value={isLogin ? 'Login' : 'Register'}
         />
         <p>
           {isLogin ? 'Not registered yet? ' : 'Already registered? '}
-          <button type="button" onClick={() => setIsLogin(!isLogin)}>
+          <button
+            type="button"
+            className="text-orange-400 hover:underline"
+            onClick={() => setIsLogin(!isLogin)}
+          >
             {isLogin ? 'Register' : 'Login'}
           </button>
         </p>
