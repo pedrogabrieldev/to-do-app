@@ -3,7 +3,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { auth } from '../lib/firebase'
+import { collection, addDoc } from 'firebase/firestore'
+import { auth, db } from '../lib/firebase'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
@@ -19,17 +20,18 @@ export default function Login() {
 
     try {
       if (isLogin) {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        )
+        await signInWithEmailAndPassword(auth, email, password)
       } else {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           email,
           password
         )
+
+        await addDoc(collection(db, 'users'), {
+          uid: userCredential.user.uid,
+          email: userCredential.user.email,
+        })
       }
     } catch (error) {
       const errorCode = error.code
