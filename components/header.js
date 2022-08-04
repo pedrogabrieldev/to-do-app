@@ -3,7 +3,7 @@ import { auth } from '../lib/firebase'
 import { useUser } from '../context/userContext'
 
 export default function Header() {
-  const { loadingUser, user } = useUser()
+  const { user } = useUser()
   async function handleSignout() {
     await signOut(auth)
   }
