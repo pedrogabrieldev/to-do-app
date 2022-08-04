@@ -32,7 +32,7 @@ export default function TodosProvider({ children }) {
       }
     }
 
-    return fetchTodos()
+    fetchTodos()
   }, [user.uid])
 
   return (
