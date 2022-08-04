@@ -54,7 +54,7 @@ export default function TodoCard(props) {
         <button type="button" className="w-4">
           <FontAwesomeIcon
             icon={faPencil}
-            className="text-green-300 peer hover:text-lg"
+            className="text-green-300 hover:text-lg"
           />
         </button>
         <button type="button" className="w-4" onClick={handleDelete}>
