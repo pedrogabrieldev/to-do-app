@@ -11,7 +11,7 @@ export default function TodosProvider({ children }) {
   const [isLoadingTodos, setIsLoadingTodos] = useState(true)
 
   useEffect(() => {
-    async function fetchTodos() {
+    async function fetchTodos(user) {
       const todosFromDb = []
       const q = query(
         collection(db, 'todos'),
@@ -32,8 +32,10 @@ export default function TodosProvider({ children }) {
       }
     }
 
-    fetchTodos()
-  }, [user.uid])
+    if (user) {
+      fetchTodos(user)
+    }
+  }, [user])
 
   return (
     <TodosContext.Provider value={{ todos, setTodos, isLoadingTodos }}>

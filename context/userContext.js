@@ -6,7 +6,7 @@ export const UserContext = createContext()
 
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [loadingUser, setLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
+  const [isLoadingUser, setIsLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
 
   useEffect(() => {
     // Listen authenticated user
@@ -22,7 +22,7 @@ export default function UserProvider({ children }) {
       } catch (error) {
         // Most probably a connection error. Handle appropriately.
       } finally {
-        setLoadingUser(false)
+        setIsLoadingUser(false)
       }
     })
 
@@ -31,7 +31,7 @@ export default function UserProvider({ children }) {
   }, [])
 
   return (
-    <UserContext.Provider value={{ user, setUser, loadingUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoadingUser }}>
       {children}
     </UserContext.Provider>
   )
