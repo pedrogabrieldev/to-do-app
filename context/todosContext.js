@@ -8,10 +8,11 @@ export const TodosContext = createContext()
 export default function TodosProvider({ children }) {
   const { user } = useUser()
   const [todos, setTodos] = useState([])
-  const [isLoadingTodos, setIsLoadingTodos] = useState(true)
+  const [isLoadingTodos, setIsLoadingTodos] = useState(false)
 
   useEffect(() => {
     async function fetchTodos(user) {
+      setIsLoadingTodos(true)
       const todosFromDb = []
       const q = query(
         collection(db, 'todos'),
