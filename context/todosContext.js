@@ -8,11 +8,10 @@ export const TodosContext = createContext()
 export default function TodosProvider({ children }) {
   const { user } = useUser()
   const [todos, setTodos] = useState([])
-  const [isLoadingTodos, setIsLoadingTodos] = useState(false)
+  const [isLoadingTodos, setIsLoadingTodos] = useState(true)
 
-  useEffect(() => {
-    async function fetchTodos(user) {
-      setIsLoadingTodos(true)
+  async function fetchTodos(user) {
+    try {
       const todosFromDb = []
       const q = query(
         collection(db, 'todos'),
@@ -20,22 +19,23 @@ export default function TodosProvider({ children }) {
         orderBy('createdAt', 'desc')
       )
 
-      try {
-        const querySnapshot = await getDocs(q)
-        querySnapshot.forEach((doc) => {
-          todosFromDb.push({ id: doc.id, ...doc.data() })
-        })
-        setTodos(todosFromDb)
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setIsLoadingTodos(false)
-      }
+      const querySnapshot = await getDocs(q)
+      querySnapshot.forEach((doc) => {
+        todosFromDb.push({ id: doc.id, ...doc.data() })
+      })
+      setTodos(todosFromDb)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoadingTodos(false)
     }
+  }
 
+  useEffect(() => {
     if (user) {
-      fetchTodos(user)
-    }
+      ;(async () => await fetchTodos(user))()
+      return () => setTodos([])
+    } else setIsLoadingTodos(false)
   }, [user])
 
   return (
