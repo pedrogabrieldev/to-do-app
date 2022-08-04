@@ -11,7 +11,7 @@ export default function TodosProvider({ children }) {
   const [isLoadingTodos, setIsLoadingTodos] = useState(true)
 
   useEffect(() => {
-    const unsubscriber = async () => {
+    async function fetchTodos() {
       const todosFromDb = []
       const q = query(
         collection(db, 'todos'),
@@ -32,7 +32,7 @@ export default function TodosProvider({ children }) {
       }
     }
 
-    return () => unsubscriber()
+    return fetchTodos()
   }, [user.uid])
 
   return (
