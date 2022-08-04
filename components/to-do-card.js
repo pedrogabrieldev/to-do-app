@@ -47,7 +47,7 @@ export default function TodoCard(props) {
           checked={todo.isCompleted}
         />
         <label htmlFor={todo.id} className="flex-1 peer-checked:line-through">
-          {props.todo.text}
+          {todo.text}
         </label>
       </div>
       <div className="hidden gap-3 group-hover:flex">
