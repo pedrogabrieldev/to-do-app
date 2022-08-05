@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { doc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useTodos } from '../context/todosContext'
+import RadixTooltip from './radix-tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPencil,
@@ -80,11 +81,13 @@ export default function TodoCard(props) {
 
           <div className="hidden group-hover:flex group-hover:gap-3">
             <button type="button" className="w-4">
-              <FontAwesomeIcon
-                icon={faPencil}
-                className="text-green-300 hover:text-lg"
-                onClick={() => setIsEditing(true)}
-              />
+              <RadixTooltip content="Edit">
+                <FontAwesomeIcon
+                  icon={faPencil}
+                  className="text-slate-100 hover:text-green-300"
+                  onClick={() => setIsEditing(true)}
+                />
+              </RadixTooltip>
             </button>
             <button type="button" className="w-4" onClick={handleDelete}>
               {isDeleting ? (
@@ -94,10 +97,12 @@ export default function TodoCard(props) {
                   className="text-red-500"
                 />
               ) : (
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  className="text-red-500 hover:text-lg"
-                />
+                <RadixTooltip content="Delete">
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    className="text-slate-100 hover:text-red-500"
+                  />
+                </RadixTooltip>
               )}
             </button>
           </div>
@@ -116,20 +121,24 @@ export default function TodoCard(props) {
 
           <div className="flex gap-3">
             <button type="submit" className="w-4">
-              <FontAwesomeIcon
-                icon={faCheck}
-                className="text-green-300 hover:text-lg"
-              />
+              <RadixTooltip content="Save">
+                <FontAwesomeIcon
+                  icon={faCheck}
+                  className="text-green-300 hover:text-lg"
+                />
+              </RadixTooltip>
             </button>
             <button
               type="button"
               className="w-4"
               onClick={() => setIsEditing(false)}
             >
-              <FontAwesomeIcon
-                icon={faX}
-                className="text-red-500 hover:text-lg"
-              />
+              <RadixTooltip content="Discard">
+                <FontAwesomeIcon
+                  icon={faX}
+                  className="text-red-500 hover:text-lg"
+                />
+              </RadixTooltip>
             </button>
           </div>
         </form>

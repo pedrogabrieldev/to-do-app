@@ -42,9 +42,10 @@ export default function NewTodo() {
       <form className="flex" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="flex-1 min-w-0 px-3 py-2 outline-none text-slate-900"
+          className="flex-1 min-w-0 px-3 py-2 outline-none text-slate-900 bg-slate-100"
           value={todo}
           onChange={handleChange}
+          placeholder="Create a new todo"
           required
         />
         <button type="submit" className="w-12 bg-orange-400 text-slate-900">
