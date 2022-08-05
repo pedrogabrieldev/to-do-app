@@ -22,6 +22,7 @@ export default function NewTodo() {
         text: todo,
         isCompleted: false,
         createdAt: serverTimestamp(),
+        lastUpdate: null,
       })
       setTodos([{ id: docRef.id, text: todo, isCompleted: false }, ...todos])
       setTodo('')
