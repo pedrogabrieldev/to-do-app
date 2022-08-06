@@ -32,7 +32,7 @@ export default function TodoCard(props) {
     }
   }
 
-  async function handleSaveEdit(event) {
+  async function saveEdit(event) {
     event.preventDefault()
 
     if (editedTodo !== todo.text) {
@@ -52,7 +52,7 @@ export default function TodoCard(props) {
     setIsEditing(false)
   }
 
-  async function handleDelete() {
+  async function deleteTodo() {
     setIsDeleting(true)
 
     try {
@@ -98,7 +98,7 @@ export default function TodoCard(props) {
                 />
               </RadixTooltip>
             </button>
-            <button type="button" className="w-4" onClick={handleDelete}>
+            <button type="button" className="w-4" onClick={deleteTodo}>
               {isDeleting ? (
                 <FontAwesomeIcon
                   icon={faSpinner}
@@ -119,7 +119,7 @@ export default function TodoCard(props) {
       )}
 
       {isEditing && (
-        <form className="flex-1 flex gap-3" onSubmit={handleSaveEdit}>
+        <form className="flex-1 flex gap-3" onSubmit={saveEdit}>
           <input
             type="text"
             className="flex-1 px-3 py-2 text-slate-900 outline-none"
