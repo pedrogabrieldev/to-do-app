@@ -46,6 +46,12 @@ export default function TodoCard(props) {
     setIsEditing(false)
   }
 
+  function discardEdit(event) {
+    event.preventDefault()
+
+    setIsEditing(false)
+  }
+
   async function handleDelete() {
     setIsDeleting(true)
 
@@ -80,12 +86,15 @@ export default function TodoCard(props) {
           </div>
 
           <div className="hidden group-hover:flex group-hover:gap-3">
-            <button type="button" className="w-4">
+            <button
+              type="button"
+              className="w-4"
+              onClick={() => setIsEditing(true)}
+            >
               <RadixTooltip content="Edit">
                 <FontAwesomeIcon
                   icon={faPencil}
                   className="text-slate-100 hover:text-green-300"
-                  onClick={() => setIsEditing(true)}
                 />
               </RadixTooltip>
             </button>
@@ -128,11 +137,7 @@ export default function TodoCard(props) {
                 />
               </RadixTooltip>
             </button>
-            <button
-              type="button"
-              className="w-4"
-              onClick={() => setIsEditing(false)}
-            >
+            <button type="button" className="w-4" onClick={discardEdit}>
               <RadixTooltip content="Discard">
                 <FontAwesomeIcon
                   icon={faX}
