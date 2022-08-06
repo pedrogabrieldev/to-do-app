@@ -74,10 +74,10 @@ export default function TodoCard(props) {
   }
 
   return (
-    <li className="group flex gap-3 items-center my-3 px-3 py-2 border border-slate-100 hover:bg-slate-700">
+    <li className="group flex items-center gap-3 px-3 py-2 text-[#F2F2F2] border border-[#333333] rounded-lg bg-[#262626] hover:border-indigo-500">
       {!isEditing && (
         <>
-          <div className="flex-1 flex gap-3">
+          <div className="flex-1 flex items-center gap-3">
             <input
               type="checkbox"
               id={todo.id}
@@ -87,7 +87,7 @@ export default function TodoCard(props) {
             />
             <label
               htmlFor={todo.id}
-              className="flex-1 py-2 peer-checked:line-through"
+              className="flex-1 py-2 peer-checked:line-through peer-checked:text-[#808080]"
             >
               {todo.text}
             </label>
@@ -102,7 +102,7 @@ export default function TodoCard(props) {
               >
                 <FontAwesomeIcon
                   icon={faPencil}
-                  className="text-slate-100 hover:text-green-300"
+                  className="text-[#808080] hover:text-green-300"
                 />
               </button>
             </RadixTooltip>
@@ -112,12 +112,12 @@ export default function TodoCard(props) {
                   <FontAwesomeIcon
                     icon={faSpinner}
                     spin
-                    className="text-red-500"
+                    className="text-[#E25858]"
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={faTrash}
-                    className="text-slate-100 hover:text-red-500"
+                    className="text-[#808080] hover:text-[#E25858]"
                   />
                 )}
               </button>
@@ -146,19 +146,13 @@ export default function TodoCard(props) {
                     className="text-green-300"
                   />
                 ) : (
-                  <FontAwesomeIcon
-                    icon={faCheck}
-                    className="text-green-300 hover:text-lg"
-                  />
+                  <FontAwesomeIcon icon={faCheck} className="text-green-300" />
                 )}
               </button>
             </RadixTooltip>
             <RadixTooltip content="Discard">
               <button type="button" className="w-4" onClick={discardEdit}>
-                <FontAwesomeIcon
-                  icon={faX}
-                  className="text-red-500 hover:text-lg"
-                />
+                <FontAwesomeIcon icon={faX} className="text-[#E25858]" />
               </button>
             </RadixTooltip>
           </div>

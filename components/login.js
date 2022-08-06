@@ -54,15 +54,12 @@ export default function Login() {
   return (
     <>
       <form
-        className="flex-1 flex flex-col justify-center items-center gap-4"
+        className="flex-1 flex flex-col justify-center items-center gap-2 w-full max-w-xs"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-center text-2xl font-bold select-none">
-          {isLogin ? 'LOGIN' : 'REGISTER'}
-        </h2>
         <input
           type="email"
-          className="text-slate-900 px-3 py-2 outline-none w-full max-w-[30ch]"
+          className="text-[#F2F2F2] px-3 py-2 outline-none border border-[#333333] rounded-md w-full bg-[#262626]"
           placeholder="Email"
           value={email}
           onChange={handleChangeEmail}
@@ -70,7 +67,7 @@ export default function Login() {
         />
         <input
           type="password"
-          className="text-slate-900 px-3 py-2 outline-none w-full max-w-[30ch]"
+          className="text-[#F2F2F2] px-3 py-2 outline-none border border-[#333333] rounded-md w-full bg-[#262626]"
           placeholder="Password"
           value={password}
           onChange={handleChangePassword}
@@ -78,7 +75,7 @@ export default function Login() {
         />
         <button
           type="submit"
-          className="w-full max-w-[30ch] px-3 py-2 border border-slate-100 cursor-pointer duration-500 hover:bg-sky-900"
+          className="w-full my-2 px-3 py-2 text-[#F2F2F2] text-xl font-medium border border-[#333333] rounded-md cursor-pointer duration-500 hover:bg-indigo-500"
         >
           {isLoading ? (
             <FontAwesomeIcon icon={faSpinner} spin />
@@ -92,7 +89,7 @@ export default function Login() {
           {isLogin ? 'Not registered yet? ' : 'Already registered? '}
           <button
             type="button"
-            className="text-orange-400 hover:underline"
+            className="text-sky-300 font-medium rounded-md hover:underline"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? 'Register' : 'Login'}

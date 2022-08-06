@@ -39,20 +39,23 @@ export default function NewTodo() {
 
   return (
     <>
-      <form className="flex" onSubmit={handleSubmit}>
+      <form className="flex gap-2" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="flex-1 min-w-0 px-3 py-2 outline-none text-slate-900 bg-slate-100"
+          className="flex-1 min-w-0 px-3 py-2 outline-none rounded-lg border border-[#0D0D0D] text-[#F2F2F2] bg-[#262626] placeholder:text-[#808080]"
           value={todo}
           onChange={handleChange}
-          placeholder="Create a new todo"
+          placeholder="Add a new todo"
           required
         />
-        <button type="submit" className="w-12 bg-orange-400 text-slate-900">
+        <button
+          type="submit"
+          className="w-12 bg-indigo-500 text-[#F2F2F2] rounded-lg"
+        >
           {isSaving ? (
-            <FontAwesomeIcon icon={faSpinner} size="lg" spin />
+            <FontAwesomeIcon icon={faSpinner} size="sm" spin />
           ) : (
-            <FontAwesomeIcon icon={faPlus} size="lg" />
+            <FontAwesomeIcon icon={faPlus} size="sm" />
           )}
         </button>
       </form>

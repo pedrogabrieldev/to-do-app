@@ -6,7 +6,7 @@ export default function TodoList() {
 
   return (
     <>
-      <ul className="">
+      <ul className="flex flex-col gap-2">
         {todos.map((todo) => (
           <TodoCard key={todo.id} todo={todo} />
         ))}
