@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { doc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useTodos } from '../context/todosContext'
+import RadixCheckbox from './radix-checkbox'
 import RadixTooltip from './radix-tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -78,16 +79,23 @@ export default function TodoCard(props) {
       {!isEditing && (
         <>
           <div className="flex-1 flex items-center gap-3">
-            <input
+            <RadixCheckbox
+              id={todo.id}
+              handleCheckboxChange={handleCheckboxChange}
+              checked={todo.isCompleted}
+            />
+            {/* <input
               type="checkbox"
               id={todo.id}
               className="peer"
               onChange={handleCheckboxChange}
               checked={todo.isCompleted}
-            />
+            /> */}
             <label
               htmlFor={todo.id}
-              className="flex-1 py-2 peer-checked:line-through peer-checked:text-[#808080]"
+              className={`flex-1 py-2 ${
+                todo.isCompleted && 'line-through text-[#808080]'
+              }`}
             >
               {todo.text}
             </label>
@@ -130,7 +138,7 @@ export default function TodoCard(props) {
         <form className="flex-1 flex gap-3" onSubmit={saveEdit}>
           <input
             type="text"
-            className="flex-1 px-3 py-2 text-slate-900 outline-none"
+            className="flex-1 px-3 py-2 text-slate-900 outline-none rounded-lg"
             value={editedTodo}
             onChange={(event) => setEditedTodo(event.target.value)}
             required
