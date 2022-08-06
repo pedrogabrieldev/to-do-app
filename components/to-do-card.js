@@ -17,6 +17,7 @@ export default function TodoCard(props) {
   const [todo, setTodo] = useState(props.todo)
   const [isEditing, setIsEditing] = useState(false)
   const [editedTodo, setEditedTodo] = useState(todo.text)
+  const [isSavingEdit, setIsSavingEdit] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
 
   async function handleCheckboxChange() {
@@ -35,15 +36,22 @@ export default function TodoCard(props) {
   async function saveEdit(event) {
     event.preventDefault()
 
-    if (editedTodo !== todo.text) {
-      const todoRef = doc(db, 'todos', todo.id)
-      await updateDoc(todoRef, {
-        text: editedTodo,
-        lastUpdate: serverTimestamp(),
-      })
-      setTodo({ ...todo, text: editedTodo })
+    try {
+      if (editedTodo !== todo.text) {
+        setIsSavingEdit(true)
+        const todoRef = doc(db, 'todos', todo.id)
+        await updateDoc(todoRef, {
+          text: editedTodo,
+          lastUpdate: serverTimestamp(),
+        })
+        setTodo({ ...todo, text: editedTodo })
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsSavingEdit(false)
+      setIsEditing(false)
     }
-    setIsEditing(false)
   }
 
   function discardEdit(event) {
@@ -86,34 +94,34 @@ export default function TodoCard(props) {
           </div>
 
           <div className="hidden group-hover:flex group-hover:gap-3">
-            <button
-              type="button"
-              className="w-4"
-              onClick={() => setIsEditing(true)}
-            >
-              <RadixTooltip content="Edit">
+            <RadixTooltip content="Edit">
+              <button
+                type="button"
+                className="w-4"
+                onClick={() => setIsEditing(true)}
+              >
                 <FontAwesomeIcon
                   icon={faPencil}
                   className="text-slate-100 hover:text-green-300"
                 />
-              </RadixTooltip>
-            </button>
-            <button type="button" className="w-4" onClick={deleteTodo}>
-              {isDeleting ? (
-                <FontAwesomeIcon
-                  icon={faSpinner}
-                  spin
-                  className="text-red-500"
-                />
-              ) : (
-                <RadixTooltip content="Delete">
+              </button>
+            </RadixTooltip>
+            <RadixTooltip content={isDeleting ? 'Deleting' : 'Delete'}>
+              <button type="button" className="w-4" onClick={deleteTodo}>
+                {isDeleting ? (
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    spin
+                    className="text-red-500"
+                  />
+                ) : (
                   <FontAwesomeIcon
                     icon={faTrash}
                     className="text-slate-100 hover:text-red-500"
                   />
-                </RadixTooltip>
-              )}
-            </button>
+                )}
+              </button>
+            </RadixTooltip>
           </div>
         </>
       )}
@@ -129,22 +137,30 @@ export default function TodoCard(props) {
           />
 
           <div className="flex gap-3">
-            <button type="submit" className="w-4">
-              <RadixTooltip content="Save">
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  className="text-green-300 hover:text-lg"
-                />
-              </RadixTooltip>
-            </button>
-            <button type="button" className="w-4" onClick={discardEdit}>
-              <RadixTooltip content="Discard">
+            <RadixTooltip content="Save">
+              <button type="submit" className="w-4">
+                {isSavingEdit ? (
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    spin
+                    className="text-green-300"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    className="text-green-300 hover:text-lg"
+                  />
+                )}
+              </button>
+            </RadixTooltip>
+            <RadixTooltip content="Discard">
+              <button type="button" className="w-4" onClick={discardEdit}>
                 <FontAwesomeIcon
                   icon={faX}
                   className="text-red-500 hover:text-lg"
                 />
-              </RadixTooltip>
-            </button>
+              </button>
+            </RadixTooltip>
           </div>
         </form>
       )}
