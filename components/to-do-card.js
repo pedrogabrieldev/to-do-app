@@ -22,13 +22,14 @@ export default function TodoCard(props) {
   const [isDeleting, setIsDeleting] = useState(false)
 
   async function handleCheckboxChange() {
+    setTodo({ ...todo, isCompleted: !todo.isCompleted })
+
     const todoRef = doc(db, 'todos', todo.id)
 
     try {
       await updateDoc(todoRef, {
         isCompleted: !todo.isCompleted,
       })
-      setTodo({ ...todo, isCompleted: !todo.isCompleted })
     } catch (error) {
       console.log(error)
     }
@@ -84,13 +85,6 @@ export default function TodoCard(props) {
               handleCheckboxChange={handleCheckboxChange}
               checked={todo.isCompleted}
             />
-            {/* <input
-              type="checkbox"
-              id={todo.id}
-              className="peer"
-              onChange={handleCheckboxChange}
-              checked={todo.isCompleted}
-            /> */}
             <label
               htmlFor={todo.id}
               className={`flex-1 py-2 ${
@@ -101,7 +95,7 @@ export default function TodoCard(props) {
             </label>
           </div>
 
-          <div className="hidden group-hover:flex group-hover:gap-3">
+          <div className="hidden group-hover:flex group-hover:gap-4">
             <RadixTooltip content="Edit">
               <button
                 type="button"
