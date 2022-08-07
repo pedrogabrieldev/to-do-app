@@ -14,7 +14,11 @@ export default function Header() {
         <span className="text-sky-300">to</span>
         <span className="text-indigo-500">do</span>
       </h1>
-      {user && <button onClick={handleSignout}>Logout</button>}
+      {user && (
+        <button className="select-none" onClick={handleSignout}>
+          Logout
+        </button>
+      )}
     </header>
   )
 }
