@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
 } from 'firebase/auth'
 import { collection, addDoc } from 'firebase/firestore'
@@ -23,7 +23,7 @@ export default function Login() {
       provider.setCustomParameters({
         prompt: 'select_account',
       })
-      const result = await signInWithPopup(auth, provider)
+      const result = await signInWithRedirect(auth, provider)
       const credential = GoogleAuthProvider.credentialFromResult(result)
       const token = credential.accessToken
     } catch (error) {
