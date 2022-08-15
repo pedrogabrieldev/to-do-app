@@ -85,7 +85,7 @@ export default function Login() {
       >
         <button
           type="button"
-          className="w-full px-3 py-2 text-[#0D0D0D] bg-[#F2F2F2] rounded-md"
+          className="w-full px-3 py-2 text-[#0D0D0D] bg-[#F2F2F2] border border-[#333333] shadow-lg rounded-md dark:border-none dark:shadow-none"
           onClick={handleLoginWithGoogle}
         >
           <FontAwesomeIcon icon={faGoogle} />
@@ -94,7 +94,7 @@ export default function Login() {
         <span className="my-3">or</span>
         <input
           type="email"
-          className="text-[#F2F2F2] px-3 py-2 outline-none border border-[#333333] rounded-md w-full bg-[#262626]"
+          className="text-[#0D0D0D] dark:text-[#F2F2F2] px-3 py-2 outline-none border border-[#333333] rounded-md w-full bg-[#F2F2F2] dark:bg-[#262626]"
           placeholder="Email"
           value={email}
           onChange={handleChangeEmail}
@@ -102,7 +102,7 @@ export default function Login() {
         />
         <input
           type="password"
-          className="text-[#F2F2F2] px-3 py-2 outline-none border border-[#333333] rounded-md w-full bg-[#262626]"
+          className="text-[#0D0D0D] dark:text-[#F2F2F2] px-3 py-2 outline-none border border-[#333333] rounded-md w-full bg-[#F2F2F2] dark:bg-[#262626]"
           placeholder="Password"
           value={password}
           onChange={handleChangePassword}
@@ -120,11 +120,11 @@ export default function Login() {
             'Register'
           )}
         </button>
-        <p>
+        <p className="text-[#0D0D0D] dark:text-[#F2F2F2]">
           {isLogin ? 'Not registered yet? ' : 'Already registered? '}
           <button
             type="button"
-            className="text-sky-300 font-medium rounded-md hover:underline"
+            className="text-indigo-500 font-medium rounded-md hover:underline"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? 'Register' : 'Login'}

@@ -42,7 +42,7 @@ export default function NewTodo() {
       <form className="flex gap-2" onSubmit={handleSubmit}>
         <input
           type="text"
-          className="flex-1 min-w-0 px-3 py-2 outline-none rounded-lg text-[#F2F2F2] bg-[#262626] border border-[#333333] placeholder:text-[#808080]"
+          className="flex-1 min-w-0 px-3 py-2 outline-none rounded-lg text-[#0D0D0D] dark:text-[#F2F2F2] bg-[#F2F2F2] dark:bg-[#262626] border border-[#333333] placeholder:text-[#808080]"
           value={todo}
           onChange={handleChange}
           placeholder="Add a new todo..."

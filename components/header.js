@@ -1,9 +1,11 @@
 import { signOut } from 'firebase/auth'
 import { auth } from '../lib/firebase'
 import { useUser } from '../context/userContext'
+import ThemeSelector from './theme-selector'
 
-export default function Header() {
+export default function Header({ theme, setTheme }) {
   const { user } = useUser()
+
   async function handleSignout() {
     await signOut(auth)
   }
@@ -14,11 +16,14 @@ export default function Header() {
         <span className="text-sky-300">to</span>
         <span className="text-indigo-500">do</span>
       </h1>
-      {user && (
-        <button className="select-none" onClick={handleSignout}>
-          Logout
-        </button>
-      )}
+      <div className="flex gap-5">
+        <ThemeSelector theme={theme} setTheme={setTheme} />
+        {user && (
+          <button className="select-none" onClick={handleSignout}>
+            Logout
+          </button>
+        )}
+      </div>
     </header>
   )
 }

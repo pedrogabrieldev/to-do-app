@@ -8,7 +8,7 @@ export default function RadixCheckbox({ id, handleCheckboxChange, checked }) {
       id={id}
       className={`flex justify-center items-center w-4 h-4 ${
         checked ? 'bg-indigo-500' : 'bg-[#F2F2F2]'
-      } outline-none rounded-full`}
+      } border border-[#0D0D0D] dark:border-none outline-none rounded-full`}
       onCheckedChange={handleCheckboxChange}
       checked={checked}
     >

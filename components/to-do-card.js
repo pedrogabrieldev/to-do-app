@@ -76,7 +76,7 @@ export default function TodoCard(props) {
   }
 
   return (
-    <li className="group flex items-center gap-3 px-3 py-2 text-[#F2F2F2] border border-[#333333] rounded-lg bg-[#262626] hover:border-indigo-500">
+    <li className="group flex items-center gap-3 px-3 py-2 text-[#0D0D0D] dark:text-[#F2F2F2] border border-[#333333] rounded-lg bg-[#F2F2F2] dark:bg-[#262626] hover:border-indigo-500">
       {!isEditing && (
         <>
           <div className="flex-1 flex items-center gap-3">
