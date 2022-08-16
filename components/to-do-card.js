@@ -132,13 +132,14 @@ export default function TodoCard(props) {
         <form className="flex-1 flex gap-3" onSubmit={saveEdit}>
           <input
             type="text"
-            className="flex-1 px-3 py-2 text-slate-900 outline-none rounded-lg"
+            className="flex-1 px-3 py-2 text-slate-900 dark:text-[#F2F2F2] bg-[#F2F2F2] dark:bg-[#262626] outline-none rounded-lg"
             value={editedTodo}
             onChange={(event) => setEditedTodo(event.target.value)}
             required
+            autoFocus
           />
 
-          <div className="flex gap-3">
+          <div className="flex gap-4">
             <RadixTooltip content="Save">
               <button type="submit" className="w-4">
                 {isSavingEdit ? (
