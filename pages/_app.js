@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class" enableSystem={false}>
       <UserProvider>
         <Layout>
           <TodosProvider>
