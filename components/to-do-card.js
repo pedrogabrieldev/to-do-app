@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { doc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useTodos } from '../context/todosContext'
-import RadixCheckbox from './radix-checkbox'
-import RadixTooltip from './radix-tooltip'
+import Checkbox from './checkbox'
+import Tooltip from './tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPencil,
@@ -80,7 +80,7 @@ export default function TodoCard(props) {
       {!isEditing && (
         <>
           <div className="flex-1 flex items-center gap-3">
-            <RadixCheckbox
+            <Checkbox
               id={todo.id}
               handleCheckboxChange={handleCheckboxChange}
               checked={todo.isCompleted}
@@ -96,7 +96,7 @@ export default function TodoCard(props) {
           </div>
 
           <div className="hidden group-hover:flex group-hover:gap-4">
-            <RadixTooltip content="Edit">
+            <Tooltip content="Edit">
               <button
                 type="button"
                 className="w-4"
@@ -107,8 +107,8 @@ export default function TodoCard(props) {
                   className="text-[#808080] hover:text-green-300"
                 />
               </button>
-            </RadixTooltip>
-            <RadixTooltip content={isDeleting ? 'Deleting' : 'Delete'}>
+            </Tooltip>
+            <Tooltip content={isDeleting ? 'Deleting' : 'Delete'}>
               <button type="button" className="w-4" onClick={deleteTodo}>
                 {isDeleting ? (
                   <FontAwesomeIcon
@@ -123,7 +123,7 @@ export default function TodoCard(props) {
                   />
                 )}
               </button>
-            </RadixTooltip>
+            </Tooltip>
           </div>
         </>
       )}
@@ -140,7 +140,7 @@ export default function TodoCard(props) {
           />
 
           <div className="flex gap-4">
-            <RadixTooltip content="Save">
+            <Tooltip content="Save">
               <button type="submit" className="w-4">
                 {isSavingEdit ? (
                   <FontAwesomeIcon
@@ -152,12 +152,12 @@ export default function TodoCard(props) {
                   <FontAwesomeIcon icon={faCheck} className="text-green-300" />
                 )}
               </button>
-            </RadixTooltip>
-            <RadixTooltip content="Discard">
+            </Tooltip>
+            <Tooltip content="Discard">
               <button type="button" className="w-4" onClick={discardEdit}>
                 <FontAwesomeIcon icon={faX} className="text-[#E25858]" />
               </button>
-            </RadixTooltip>
+            </Tooltip>
           </div>
         </form>
       )}
