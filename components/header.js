@@ -11,7 +11,7 @@ export default function Header({ theme, setTheme }) {
   }
 
   return (
-    <header className="sticky w-full flex items-center justify-between px-6 py-8 bg-[#0D0D0D]">
+    <header className="sticky w-full flex items-center justify-between px-6 py-8 text-[#F2F2F2] bg-[#0D0D0D]">
       <h1 className="select-none font-black text-4xl">
         <span className="text-sky-300">to</span>
         <span className="text-indigo-500">do</span>
