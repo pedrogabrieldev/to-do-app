@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from '../lib/firebase'
 
 export const UserContext = createContext()
@@ -7,6 +7,14 @@ export const UserContext = createContext()
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null)
   const [isLoadingUser, setIsLoadingUser] = useState(true) // Helpful, to update the UI accordingly.
+
+  async function signOutUser() {
+    try {
+      await signOut(auth)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     // Listen authenticated user
@@ -31,7 +39,7 @@ export default function UserProvider({ children }) {
   }, [])
 
   return (
-    <UserContext.Provider value={{ user, setUser, isLoadingUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoadingUser, signOutUser }}>
       {children}
     </UserContext.Provider>
   )
