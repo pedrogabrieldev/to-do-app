@@ -1,17 +1,16 @@
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 import * as Popover from '@radix-ui/react-popover'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSun, faMoon, faDesktop } from '@fortawesome/free-solid-svg-icons'
 
-export default function ThemeSelector({ theme, setTheme }) {
-  function handleSetLightTheme() {
-    localStorage.theme = 'light'
-    setTheme('light')
-  }
+export default function ThemeSelector() {
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
 
-  function handleSetDarkTheme() {
-    localStorage.theme = 'dark'
-    setTheme('dark')
-  }
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return null
 
   return (
     <Popover.Root>
@@ -36,7 +35,7 @@ export default function ThemeSelector({ theme, setTheme }) {
               className={`flex items-center gap-3 px-2 py-1 cursor-pointer hover:bg-[#0D0D0D] ${
                 theme === 'light' && 'text-yellow-200'
               }`}
-              onClick={handleSetLightTheme}
+              onClick={() => setTheme('light')}
             >
               <FontAwesomeIcon icon={faSun} />
               Light
@@ -47,7 +46,7 @@ export default function ThemeSelector({ theme, setTheme }) {
               className={`flex items-center gap-3 px-2 py-1 cursor-pointer hover:bg-[#0D0D0D] ${
                 theme === 'dark' && 'text-sky-300'
               }`}
-              onClick={handleSetDarkTheme}
+              onClick={() => setTheme('dark')}
             >
               <FontAwesomeIcon icon={faMoon} />
               Dark

@@ -1,30 +1,20 @@
-import { useEffect, useState } from 'react'
+import { ThemeProvider } from 'next-themes'
 import UserProvider from '../context/userContext'
 import TodosProvider from '../context/todosContext'
 import Layout from '../components/layout'
 import '../styles/globals.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
-function MyApp({ Component, pageProps }) {
-  const [theme, setTheme] = useState(null)
-
-  useEffect(() => {
-    if (localStorage.theme === 'light') {
-      setTheme('light')
-    } else {
-      setTheme('dark')
-    }
-  }, [])
-
+export default function App({ Component, pageProps }) {
   return (
-    <UserProvider>
-      <Layout theme={theme} setTheme={setTheme}>
-        <TodosProvider>
-          <Component {...pageProps} />
-        </TodosProvider>
-      </Layout>
-    </UserProvider>
+    <ThemeProvider attribute="class">
+      <UserProvider>
+        <Layout>
+          <TodosProvider>
+            <Component {...pageProps} />
+          </TodosProvider>
+        </Layout>
+      </UserProvider>
+    </ThemeProvider>
   )
 }
-
-export default MyApp
