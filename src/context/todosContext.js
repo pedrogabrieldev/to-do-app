@@ -1,7 +1,6 @@
 import { useState, useEffect, createContext, useContext } from 'react'
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
-import { db } from '../lib/firebase'
 import { useUser } from '../context/userContext'
+import { todosDAO } from '../dao/todosDAO'
 
 export const TodosContext = createContext()
 
@@ -10,32 +9,20 @@ export default function TodosProvider({ children }) {
   const [todos, setTodos] = useState([])
   const [isLoadingTodos, setIsLoadingTodos] = useState(true)
 
-  async function fetchTodos(user) {
-    try {
-      const todosFromDb = []
-      const q = query(
-        collection(db, 'todos'),
-        where('uid', '==', user.uid),
-        orderBy('createdAt', 'desc')
-      )
-
-      const querySnapshot = await getDocs(q)
-      querySnapshot.forEach((doc) => {
-        todosFromDb.push({ id: doc.id, ...doc.data() })
-      })
-      setTodos(todosFromDb)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoadingTodos(false)
-    }
-  }
-
   useEffect(() => {
-    if (user) {
-      ;(async () => await fetchTodos(user))()
-      return () => setTodos([])
-    } else setIsLoadingTodos(false)
+    ;(async () => {
+      try {
+        if (user) {
+          const todosFromDb = await todosDAO.getTodos(user.uid)
+          setTodos(todosFromDb)
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoadingTodos(false)
+      }
+    })()
+    return () => setTodos([])
   }, [user])
 
   return (

@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { doc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
-import { db } from '../lib/firebase'
 import { useTodos } from '../context/todosContext'
+import { todosDAO } from '../dao/todosDAO'
 import Checkbox from './checkbox'
 import Tooltip from './tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,12 +23,8 @@ export default function TodoCard(props) {
   async function handleCheckboxChange() {
     setTodo({ ...todo, isCompleted: !todo.isCompleted })
 
-    const todoRef = doc(db, 'todos', todo.id)
-
     try {
-      await updateDoc(todoRef, {
-        isCompleted: !todo.isCompleted,
-      })
+      await todosDAO.updateTodoIsCompleted(todo.id, !todo.isCompleted)
     } catch (error) {
       console.log(error)
     }
@@ -41,11 +36,7 @@ export default function TodoCard(props) {
     try {
       if (editedTodo !== todo.text) {
         setIsSavingEdit(true)
-        const todoRef = doc(db, 'todos', todo.id)
-        await updateDoc(todoRef, {
-          text: editedTodo,
-          lastUpdate: serverTimestamp(),
-        })
+        await todosDAO.updateTodoText(todo.id, editedTodo)
         setTodo({ ...todo, text: editedTodo })
       }
     } catch (error) {
@@ -66,7 +57,7 @@ export default function TodoCard(props) {
     setIsDeleting(true)
 
     try {
-      await deleteDoc(doc(db, 'todos', props.todo.id))
+      await todosDAO.deleteTodo(todo.id)
       setTodos(todos.filter((_todo) => _todo.id !== todo.id))
     } catch (error) {
       console.log(error)
