@@ -61,24 +61,18 @@ export default function UserProvider({ children }) {
   }
 
   useEffect(() => {
-    // Listen authenticated user
     const unsubscriber = onAuthStateChanged(auth, async (user) => {
       try {
         if (user) {
-          // User is signed in.
           const { uid, displayName, email, photoURL } = user
-          // You could also look for the user doc in your Firestore (if you have one):
-          // const userDoc = await firebase.firestore().doc(`users/${uid}`).get()
           setUser({ uid, displayName, email, photoURL })
         } else setUser(null)
       } catch (error) {
-        // Most probably a connection error. Handle appropriately.
       } finally {
         setIsLoadingUser(false)
       }
     })
 
-    // Unsubscribe auth listener on unmount
     return () => unsubscriber()
   }, [])
 
@@ -98,5 +92,4 @@ export default function UserProvider({ children }) {
   )
 }
 
-// Custom hook that shorthands the context!
 export const useUser = () => useContext(UserContext)
